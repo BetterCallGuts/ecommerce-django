@@ -1,0 +1,146 @@
+{% extends 'core/base.html' %}
+
+{% block title %} {{item.name}}  {% endblock title %}
+
+{% block bodyclass %}
+bg-gray-200
+{% endblock bodyclass %}
+
+
+{% block content %}
+{% if m %}
+<div class="mx-6 my-3 bg-green-300 px-3 py-6 text-center rounded-xl">
+    <p><span class=" text-l"> {{item.name}}</span> {{m}}</p>
+
+</div>
+  
+{% endif %}
+    <style>
+
+        .oo p{
+            font-size: 12px;
+        }
+        .oo a, .oo input{
+            font-size: 12px;
+            padding: 3px 10px;
+
+        }
+        .t a:hover{
+            color: #d52127;
+        }
+        .op{
+            
+        }
+        .mom{
+            
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fit, 186px);
+}
+        
+    </style>
+<div class='grid  grid-cols-7 bg-white '>
+    <div class='col-span-3 '>
+        <img src='{{item.image.url}}' class='rounded-l-xl w-[100%]'>
+
+    </div>
+    <div class='col-span-1 py-2 px-1 bg-white border border-black oo '>
+
+        <h1 class='  text-xl'>
+            {{item.name }}
+        </h1>
+
+        <p class='text-gray-500 '>
+            <strong>Price: </strong>{{item.price}}
+        </p>
+
+        <!-- <p class='text-gray-500 '>
+            <strong>Seller: </strong>{{item.created_by.username}}
+        </p> -->
+        <!-- <p class='text-gray-500 '>
+            <strong>Created at: </strong>{{item.created_at}}
+        </p> -->
+            
+        
+        {% if item.description %}
+            <p class='text-gray-700 '>
+
+                <strong class='text-gray-500 '>Description:  </strong><br>
+                {{item.description}}
+            </p>
+
+        {% endif %}
+        {% if request.user == item.created_by %}
+        <div class='mt-6 p-6 bg-white rounded-xl'>
+            <p>
+                This is your item!
+            </p>
+            <a href="{% url 'item:edit' item.id %}" class='inline-block text-lg font-semibold bg-teal-500 text-white rounded-xl '>
+                Edit
+    
+            </a>
+            <a href="{% url 'item:delete' item.id %}" class='inline-block  text-lg font-semibold bg-[#d52127]text-white rounded-xl '>
+                Delete
+
+            </a>
+        </div>
+        {% else %}
+        {% if button %}
+          
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="remove" value="True">    
+            <input type="submit" value="Remove from cart" class="inline-block transition-hover font-semibold bg-[#d52127] text-white rounded-xl hover:bg-red-700">
+            
+        </form>
+        {% else %}
+
+        <a href="{% url 'l:index' item.id %}" class='inline-block  transition-hover font-semibold bg-[#4770db] text-white rounded-xl hover:bg-teal-700' >
+            Add to cart
+        </a>
+        {% endif %}
+        {% endif %}
+
+        <hr class="my-2 border-[#1E2F6D]">
+        <span class="text-[15px]">Supported cars : </span><br>
+        {% for i in item.Supported_cars_template %}
+        
+        <p class="ml-2 t">   <a href="{% url 'item:items' %}?{{i.Name}}=1">  {{i.Name}}</a></p>
+        {% endfor %}    
+
+    </div>
+
+<!--  -->
+
+<div class=' px-6 py-12 col-span-3  bg-white rounded-r-xl'>
+    <h2 class='mb-12 text-2xl text-center '>
+        Recommended
+    </h2>
+
+    <div class='mom'>
+        {% for item in related_items %}
+        
+            <div class='shadow-[0_4px_9px_-4px_#3b71ca] hover:scale-[1.09] transition-all  rounded  op'>
+                <a href="{% url 'item:detail' item.id %}" >
+                    <div>
+                        <img src="{{ item.image.url}}" class='rounded-t-xl w-[100%]'>
+                    </div>
+                    <div class='px-1 py1 bg-white rounded-b-xl'>
+                        <h2 class=' '>
+                            {{ item.name}}
+                        </h2>
+                        <p  class='text-gray-500 '>
+                            Price : {{ item.price}}
+                        </p>
+                    </div>
+                </a>
+            </div>
+            
+            {% endfor %}
+            
+        </div>
+    </div>
+<!--  -->
+</div>
+
+{% endblock content %}

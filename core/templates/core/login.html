@@ -1,0 +1,42 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Login up
+{% endblock title %}
+
+
+{% block content %}
+<div class='w-1/2 my-6 p-6 mx-auto bg-gray-300 rounded-xl shadow-[0_9px_9px_-4px_#3b71ca] '>
+    <h1 class='mb-6 text-3xl'>Log in</h1>
+
+    <form action="." method="post">
+        {% csrf_token %}
+
+        
+
+        <div class="mb-3 ">
+            <label for="" class="inline-block mb-2"> Username: </label><br>
+            {{ form.username}}
+
+        </div>
+
+
+
+        <div class="mb-3 ">
+            <label for="" class="inline-block mb-2"> Password: </label><br>
+            {{ form.password}}
+
+        </div>
+
+        {% if form.errors or form.none_field_errors %}
+            <div class="mb-3 p-6 bg-red-100 rounded-xl">
+
+                <p> Invalid username or password</p>
+            </div>
+        {% endif %}
+        <button class="py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white transition-all shadow-[0_9px_9px_-4px_#3b71ca] "> Submet  </button>
+        <a href="{% url 'core:signup' %}" class='py-4 px-8 bg-gray-500 text-lg text-white rounded-xl hover:bg-gray-700 shadow-[0_9px_9px_-4px_#3b71ca]  transition-all'> Sign up</a>
+    </form>
+    
+</div>
+{% endblock content %}

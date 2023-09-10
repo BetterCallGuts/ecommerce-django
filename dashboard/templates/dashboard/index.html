@@ -1,0 +1,83 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Dashboard {% endblock title %}
+
+{% block content %}
+
+    <div class='mt-6 px-6 py-12  bg-gray-100 rounded-xl '>
+        <div class="flex justify-between">
+        <h2 class='mb-12 text-2xl  '>
+            My Cart
+        </h2>
+        {% if total == 0 %}
+        <p><span class="2xl:text-lg">Your cart is empty</span></p>
+
+
+        {% else %}      
+
+        <a href="{% url 'l:payment' %}" class="px-3 py-2 bg-orange-400 h-fit w-fit rounded-xl hover:bg-orange-700 transition-all direction-350 inline-block hover:scale-[1.0`   9]" >Order now</a>
+        <p><span class="text-gray-600">Total: </span><span class="2xl:text-lg">{{total}}</span></p>
+        {% endif %}
+    </div>
+        <div class='grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2 2xl:grid-cols-6'>
+            {% for item in items %}
+            
+                <div class="hover:scale-[1.04] shadow-[0_0_10px_black] rounded-xl transition-all">
+                    <a href="{% url 'item:detail' item.id %}" >
+                        <div>
+                            <img src="{{ item.image.url}}" class='rounded-t-xl w-[100%]'>
+                        </div>
+                        <div class='p-6 bg-white rounded-b-xl'>
+                            <h2 class='text-2xl '>
+                                {{ item.name}}
+                            </h2>
+                            <p  class='text-gray-500 '>
+                                Price : {{ item.price}}
+                            </p>
+                            {% if item.Supported_cars_template %}
+                                <span class="text-[10px]">Supported cars</span>
+                                <hr class="border-[#1E2F6D]">
+                                <div class="flex gap-1 flex-wrap">
+                                    
+                                  {% for l in item.Supported_cars_template  %}
+                                     <span class="text-[12px] ">{{l}}</span>
+                                  {% endfor %}
+                                </div>
+                                  {% endif %}
+                        </div>
+                        
+                    </a>
+                </div>
+                
+                {% endfor %}
+                
+            </div>
+        </div>
+        <div class='mt-6 px-6 py-12  bg-gray-100 rounded-xl'>
+            <h2 class='mb-12 text-2xl text-center '>
+                Categories
+            </h2>
+    
+            <div class='grid grid-cols-3  gap-3 '>
+                {% for c in category %}
+                    
+                    <div>
+                        <a href='#' >
+
+                            <div class='p-6 bg-white rounded-b-xl'>
+                                <h2 class='text-2xl '>
+                                    {{ c.name}}
+                                </h2>
+                                <p  class='text-gray-500 '>
+                                    {{c.items.count}} items
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                
+                {% endfor %}
+            </div>
+
+        </div>
+{% endblock content %}

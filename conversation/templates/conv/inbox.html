@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Inbox{% endblock title %}
+
+{% block content %}
+<h1 class = 'mb-6 text-3xl'>
+Inbox
+</h1>
+<div class='space-y-6' >
+{% for conv in convs %}
+
+    <a href="{% url 'conv:detailconv' conv.id %}" >
+        <div class='p-6 flex bg-gray-100 rounded-xl'>
+            <div class='pr-6'>
+                <img src="{{ conv.item.image.url }}" class='w-20 rounded-xl'>
+
+            </div>
+            <div>
+                {% for mem in conv.members.all %}
+                    {% if mem != request.user %}
+                    
+                    <p class='mb-4 '>
+                    <strong>{{ mem.username}}</strong> | {{ conv.modified_at }}
+                    </p>
+                    <p>{{ conv.item.name }}</p>
+                    {% endif %}
+                
+                {% endfor %}
+            </div>
+        </div>
+        
+
+
+    </a>
+{% endfor %}
+
+</div>
+
+{% endblock content %}
