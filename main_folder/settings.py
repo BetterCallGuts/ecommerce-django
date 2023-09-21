@@ -21,8 +21,15 @@ INSTALLED_APPS = [
     'item',
     'conversation',
     'import_export',
-    'Car'
-];MIDDLEWARE = [
+    'Car',
+    "rest_framework",
+    'api',
+    'rest_framework_xml',
+
+]
+
+
+MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -73,8 +80,18 @@ STATIC_URL = 'static/';
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'main_folder/static')]
 STATIC_ROOT      = os.path.join(BASE_DIR, 'static')
 
-MEDIA_URL  = 'media/';
+MEDIA_URL  = 'media/'
 
+REST_FRAMEWORK = {
+  'DEFAULT_PARSER_CLASSES': (
+      "rest_framework.parsers.JSONParser",
+    'rest_framework_xml.parsers.XMLParser',
+  ),
+    'DEFAULT_RENDERER_CLASSES': (
+    'rest_framework.renderers.BrowsableAPIRenderer',
+     'rest_framework.renderers.JSONRenderer',
+    'rest_framework_xml.renderers.XMLRenderer',
+  ),}
 
 MEDIA_ROOT = BASE_DIR / 'media';
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField';
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

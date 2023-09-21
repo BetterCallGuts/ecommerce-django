@@ -18,7 +18,7 @@ class Car(models.Model):
   Name = models.CharField(max_length=255);
   Car_type  = models.ForeignKey(CarType, on_delete=models.SET_NULL, default='', null=True, blank= True)
   Avilable_battries = models.ManyToManyField(to='item.Item', blank=True)
-
+  
   
   def get_products(self):
       return ", ".join([p.name for p in self.Avilable_battries.all()])

@@ -25,6 +25,7 @@ class Item(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     ordered_by = models.ManyToManyField(User, default='' )
     
+    
     def get_usrs_that_order_the_item(self):
         return [p for p in self.ordered_by.all()]
     

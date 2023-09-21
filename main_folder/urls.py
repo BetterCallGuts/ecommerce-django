@@ -9,7 +9,8 @@ urlpatterns = [
     path('item/', include('item.urls' )),
     path('dashboard/', include('dashboard.urls')),
     path('inbox/', include('conversation.urls')),
-path('', include('Car.urls'))
+    path('', include('Car.urls')),
+    path("api/", include("api.urls"))
     # path('', views.index , name='index')
     # path('', views.index , name='index')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
