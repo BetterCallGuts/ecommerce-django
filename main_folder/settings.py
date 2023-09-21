@@ -25,9 +25,9 @@ INSTALLED_APPS = [
     "rest_framework",
     'api',
     'rest_framework_xml',
+    "corsheaders"
 
 ]
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -37,6 +37,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware"
 ];ROOT_URLCONF = 'main_folder.urls'
 TEMPLATES = [
     {
@@ -93,5 +94,6 @@ REST_FRAMEWORK = {
     'rest_framework_xml.renderers.XMLRenderer',
   ),}
 
+CORS_ORIGIN_ALLOW_ALL = True
 MEDIA_ROOT = BASE_DIR / 'media';
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
