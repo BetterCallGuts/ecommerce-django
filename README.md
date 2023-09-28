@@ -2,8 +2,17 @@
 
 ### It was made by a smiple django a made an API for it so it can be used for React or Angular projects
 requirements
+```bash
+pip install  django-import-export
+pip install  djangorestframework
+pip install  djangorestframework-xml
+pip install  django-cors-headers
+pip install  django-jazzmin
 ```
-
+or just download the ```requirements.txt```
+and type
+```bash
+pip install -r requirements.txt
 ```
 
 ![Capture_4](https://github.com/BetterCallGuts/ecommerce-django/assets/122576822/4c6af5ff-ef5b-44a8-9cf6-33547325a190)
