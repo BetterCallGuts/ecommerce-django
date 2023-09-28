@@ -1,6 +1,12 @@
 # ecommerce-django
 
-### It was made by a smiple django a made an API for it so it can be used for React or Angular projects
+### It was made by a smiple django, and I made an API for it so it can be used for React or Angular or any other front-end projects.
+
+I used jazzmin for admin site you can remove it if you want by simple remove it from installed apps,
+I used DRF for the api and I allowd import export in the admin site.
+# Enjoy
+
+___
 requirements
 ```bash
 pip install  django-import-export
