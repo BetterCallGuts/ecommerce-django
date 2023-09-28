@@ -1,0 +1,5 @@
+django-import-export
+djangorestframework
+djangorestframework-xml
+django-cors-headers
+django-jazzmin
