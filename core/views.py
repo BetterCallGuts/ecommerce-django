@@ -55,6 +55,9 @@ def contact(request):
 def signup(request):
     if request.method == "POST":
         form = SignupForm(request.POST)
+        print(request.POST)
+        print('__________________')
+        print(form)
         
         if form.is_valid():
 
