@@ -2,7 +2,7 @@ from django.shortcuts           import render
 from .                          import serializer
 from django.http                import HttpRequest
 from rest_framework.response    import Response
-from item.models                import Item, Car
+from item.models                import Item, Car, Category
 from rest_framework.decorators  import api_view
 from rest_framework             import status
 from django.contrib.auth.models import User
@@ -39,16 +39,19 @@ def getallcarstype(req, format=None):
 @api_view(["GET"])
 def getalldata(req, format=None):
   
-  all_cars  = Car.objects.all()
-  all_items= Item.objects.all()
+  all_cars       = Car.objects.all()
+  all_items      = Item.objects.all()
+  all_categories = Category.objects.all()
 
+  itemserializer       = serializer.ItemSerializer(all_items   ,many=True)
+  carerializer         = serializer.CarSerializer (all_cars    ,many=True) 
+  categoriesserializer = serializer.CategorySerializer(all_categories, many=True)
 
-  itemserializer = serializer.ItemSerializer(all_items   ,many=True)
-  carerializer   = serializer.CarSerializer (all_cars    ,many=True) 
 
   f = {
     "cars" : carerializer.data,
-    "items" : itemserializer.data
+    "items" : itemserializer.data,
+    'categories' : categoriesserializer.data
     }
   
   
@@ -97,7 +100,9 @@ def check_user(req:HttpRequest, format= None):
 
 @api_view(['POST'])
 def createuser(req:HttpRequest, format=None):
-  # print(req.data)
+  print(req.data)
+  print("*"*10)
+  print(req.POST)
   
   
   username_ = req.data.get('username', None)
@@ -105,11 +110,14 @@ def createuser(req:HttpRequest, format=None):
   email    = req.data.get("email",    None)
   if (username_ and password1 and email) is not None:
     userrr = User.objects.filter(username=username_)
-    userr = User.objects.filter(username=username_)
-    if  userrr.exists() or userr.exists():
+    userr = User.objects.filter(email=email)
+    if  userrr.exists() :
       
       
-      return Response({"data" : None, "status" : "AlreadyExist"}, status=status.HTTP_200_OK)
+      return Response({"data" : None, "status" : "Username Already exists"}, status=status.HTTP_409_CONFLICT )
+    elif userr.exists():
+      
+      return Response({"data" : None, "status" : "Email Already exists"}, status=status.HTTP_409_CONFLICT )
     else:
   
 

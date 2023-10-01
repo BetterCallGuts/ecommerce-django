@@ -22,3 +22,10 @@ class UserSerializer(serializers.ModelSerializer) :
   class Meta:
     model  = models.User
     fields = "__all__"
+    
+
+
+class CategorySerializer(serializers.ModelSerializer):
+  class Meta:
+    model  = Category
+    fields = ['id', 'name']
