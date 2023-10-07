@@ -12,6 +12,8 @@ class Category(models.Model):
         verbose_name_plural = "Categories"
     
 
+
+
 class Item(models.Model):
     category = models.ForeignKey(Category, related_name='items', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
@@ -21,9 +23,9 @@ class Item(models.Model):
     
     
     is_sold = models.BooleanField(default=False)
-    created_by = models.ForeignKey(User,related_name='items', on_delete=models.CASCADE)
+    created_by = models.ForeignKey(User,related_name='items', on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    ordered_by = models.ManyToManyField(User, default='' )
+    ordered_by = models.ManyToManyField(User, blank=True )
     
     
     def get_usrs_that_order_the_item(self):
@@ -71,3 +73,12 @@ class Item(models.Model):
 
 # class Car(models.Model):
 # 
+
+class Ticket(models.Model):
+    howMany = models.IntegerField();
+    user    = models.ForeignKey(User, on_delete=models.CASCADE);
+    item    = models.ForeignKey(Item, on_delete=models.CASCADE) 
+    
+    def __str__(self):
+        
+        return f"{self.user} | {self.item} | {self.howMany}"

@@ -72,6 +72,7 @@ def paymentaccepted(req:HttpRequest):
 
       )
       
+      
       for n in items:
         n.ordered_by.remove(req.user)
 

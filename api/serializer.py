@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from item.models    import Item, Category, Car, CarType
+from item.models    import Item, Category, Car, CarType, Ticket
 from django.contrib.auth  import models
 
 
@@ -29,3 +29,10 @@ class CategorySerializer(serializers.ModelSerializer):
   class Meta:
     model  = Category
     fields = ['id', 'name']
+    
+    
+
+class TicketSerialier(serializers.ModelSerializer):
+  class Meta:
+    model = Ticket
+    fields = ['howMany', "user", "item"]
